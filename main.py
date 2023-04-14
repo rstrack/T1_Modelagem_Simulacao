@@ -11,25 +11,13 @@ a = float(2**(EXP/2))
 c = 7
 
 #valores aleatorios iniciais
-SEEDS = [
-    123,
-    126540,
-    1,
-    97845461,
-    145616,
-    4561651,
-    564897,
-    7978942649,
-    564156321,
-    465631163
-]
+SEEDS = numpy.random.uniform(size=10)
 
 def generate_test():
     """Gera um arquivo com números aleatórios com dist. uniforme utilizando o numpy, para testes"""
     with open(f'./test.txt', 'w') as file:
-        rand = numpy.random
-        for i in range(5000000):
-            x = rand.uniform()
+        for _ in range(5000000):
+            x = numpy.random.uniform()
             file.write(f'{x}\n')
 
 def generate_files():
@@ -37,8 +25,8 @@ def generate_files():
     for file_no in range(1, 11):
         with open(f'./NEWALEO_{file_no}.txt', 'w') as file:
             start_time = time.time()
-            gen = GNPCL(SEEDS[file_no-1], EXP, MOD, c)
-            for i in range(5000000):
+            gen = GNPCL(SEEDS[file_no-1], EXP, c)
+            for _ in range(5000000):
                 x = gen.generate()
                 file.write(f'{x}\n')
             duration = time.time() - start_time
@@ -46,11 +34,18 @@ def generate_files():
 
 def execute_tests():
     """Executa os testes de aleatoriedade nos arquivos gerados"""
-    for file_no in range(10):
-        # tests.uniformity_test(f'./NEWALEO_{file_no+1}.txt')
-        # tests.runs_test(f'./NEWALEO_{file_no+1}.txt')
-        tests.interval_test(f'./NEWALEO_{file_no+1}.txt')
+    with open('resumo_testes.txt', 'w') as file:
+        for file_no in range(10):
+            r1 = tests.uniformity_test(f'./NEWALEO_{file_no+1}.txt')
+            r2 = tests.runs_test(f'./NEWALEO_{file_no+1}.txt')
+            r3 = tests.interval_test(f'./NEWALEO_{file_no+1}.txt')
+            r4 = tests.permutation_test(f'./NEWALEO_{file_no+1}.txt')
+            file.write(f"ARQUIVO NEWALEO_{file_no+1}.txt\n")
+            file.write(f"Teste de uniformidade: {'OK' if r1 else 'Nao Passou'}\n")
+            file.write(f"Teste das corridas: {'OK' if r2 else 'Nao Passou'}\n")
+            file.write(f"Teste de intervalos: {'OK' if all(map(bool, r3)) else 'Nao Passou'}\n")
+            file.write(f"Teste de permutacao: {'OK' if r4 else 'Nao Passou'}\n\n")
 
 if __name__ == '__main__':
-    #generate_files()
+    generate_files()
     execute_tests()

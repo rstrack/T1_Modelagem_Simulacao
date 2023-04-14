@@ -35,6 +35,7 @@ def uniformity_test(file_path: str):
         print('Rejeita H0')
         return False
 
+
 def runs_test(file_path: str):
     asc_run_value = 1
     desc_run_value = 1
@@ -99,7 +100,7 @@ def interval_test(file_path: str):
     """
     with open(file_path, 'r') as f:
         values = [float(line) for line in f.readlines()]
-    
+    results = [False]*10
     for d in range(10):
         interval_len = 1
         intervals = []
@@ -122,5 +123,47 @@ def interval_test(file_path: str):
         print(f'TESTE DE INTERVALO n = {d}: KS Calculado: {ks_calc} | KS 5%: {ks_5}')
         if(ks_calc < ks_5):
             print('Aceita H0')
+            results[d] = True
         else: 
             print('Rejeita H0')
+    return results
+
+
+def permutation_test(file_path: str):
+    fo_count = [0] * 6
+    with open(file_path, 'r') as f:
+        values = [float(line) for line in f.readlines()]
+
+    values = values[:-(len(values)%3)]
+    
+    for i in range(len(values)):
+        if ((i+1) % 3) == 0:
+            fo_count[order_func(values[i-2], values[i-1], values[i])] += 1
+    group_count = sum(fo_count)
+    expected_cdf = np.array([(1/6)*i for i in range(1,7)])
+    observed_cdf = np.array([sum(fo_count[:i+1])/group_count for i in range(6)])
+    ks_calc = np.max(np.abs(observed_cdf - expected_cdf))
+    ks_5 = 1.36/np.sqrt(group_count)
+    print(f'TESTE DE PERMUTAÇÃO: KS Calculado: {ks_calc} | KS 5%: {ks_5}')
+    if(ks_calc < ks_5):
+        print('Aceita H0')
+        return True
+    else: 
+        print('Rejeita H0')
+        return False
+
+
+def order_func(v1:float, v2:float, v3:float):
+    if v1 < v2 and v2 < v3:
+        return 0
+    elif v1 < v3 and v3 < v2:
+        return 1
+    elif v2 < v1 and v1 < v3:
+        return 2
+    elif v2 < v3 and v3 < v1:
+        return 3
+    elif v3 < v1 and v1 < v2:
+        return 4
+    elif v3 < v2 and v2 < v1:
+        return 5
+    else: return 'error'
