@@ -80,7 +80,6 @@ def runs_test(file_path: str):
     asc_ks_5 = 1.36/(np.sqrt(len(asc_runs)))
     desc_ks_calc = np.max(np.abs(desc_observed_cdf - desc_expected_cdf))
     desc_ks_5 = 1.36/(np.sqrt(len(desc_runs)))
-    print('\n')
     print(f'CORRIDA ASCENDENTE: KS Calculado: {asc_ks_calc}\nKS 5%: {asc_ks_5}')
     print(f'CORRIDA DESCENDENTE: KS Calculado: {desc_ks_calc}\nKS 5%: {desc_ks_5}')
 

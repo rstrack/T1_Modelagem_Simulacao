@@ -4,15 +4,6 @@ import numpy
 import tests
 from gnpcl import GNPCL
 
-EXP = 17
-MOD = float(2**EXP - 1)
-#a = MOD**(0.5)
-a = float(2**(EXP/2))
-c = 7
-
-#valores aleatorios iniciais
-SEEDS = numpy.random.uniform(size=10)
-
 def generate_test():
     """Gera um arquivo com números aleatórios com dist. uniforme utilizando o numpy, para testes"""
     with open(f'./test.txt', 'w') as file:
@@ -22,10 +13,12 @@ def generate_test():
 
 def generate_files():
     """Gera 10 arquivos com 5 MI de números aleatórios com o gerador criado"""
+    gen = GNPCL(0)
     for file_no in range(1, 11):
         with open(f'./NEWALEO_{file_no}.txt', 'w') as file:
             start_time = time.time()
-            gen = GNPCL(SEEDS[file_no-1], EXP, c)
+            # usa o valor do unix timestamp como seed
+            gen.new_seed(start_time)
             for _ in range(5000000):
                 x = gen.generate()
                 file.write(f'{x}\n')

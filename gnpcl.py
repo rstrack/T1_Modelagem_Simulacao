@@ -5,34 +5,38 @@ class GNPCL():
 
     Atributos:
     ----------
-    seed : float
+    seed : int
         número inicial do gerador
-    exp : float
+    exp : int
         expoente para geração do módulo
-    mod : float
+    mod : int
         módulo utilizado para congruência. Preferencialmente o maior inteiro possível
-    c : float   
+    c : int   
         constante de incremento (padrão: 0)
 
     Métodos:
     ----------
-    new_seed(seed: float)
+    new_seed(seed: int)
         define nova seed para o gerador, iniciando um novo ciclo de geração
-    generate()
+    generate() -> float
         gera o próximo número do gerador
     """
-    def __init__(self, seed: float, exp:float, c: float = 0) -> None:
-        self.prev = seed
-        self.exp = exp
-        self.mod = float(2**exp - 1)
-        # valor alternativo:
-        # self.a = self.mod**(0.5)
-        self.a = float(2**(exp/2))
-        self.c = c
+    exp = 61
+    mod = 2**exp - 1
+    # a = mod**(0.5)
+    # a = float(2**(EXP/2))
+    t = 7777777
+    a = float(8*t+3)
+    # a = float(8*T-3)
+    c = 2**17 - 1 # primo de mersenne
 
-    def new_seed(self, seed: float) -> None:
+    def __init__(self, seed: int) -> None:
+        self.prev = seed
+        self.mod = 2**self.exp - 1
+
+    def new_seed(self, seed: int) -> None:
         self.prev = seed
 
     def generate(self) -> float:
-        self.prev = float((self.a * self.prev + self.c) % self.mod)
+        self.prev = (self.a * self.prev + self.c) % self.mod
         return self.prev/self.mod
