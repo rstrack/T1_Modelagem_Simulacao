@@ -1,3 +1,4 @@
+import os
 import time
 import numpy
 
@@ -27,7 +28,7 @@ def generate_files():
 
 def execute_tests():
     """Executa os testes de aleatoriedade nos arquivos gerados"""
-    with open('resumo_testes.txt', 'w') as file:
+    with open('./txt_files/resumo_testes.txt', 'w') as file:
         for file_no in range(10):
             r1 = tests.uniformity_test(f'./txt_files/NEWALEO_{file_no+1}.txt')
             r2 = tests.runs_test(f'./txt_files/NEWALEO_{file_no+1}.txt')
@@ -44,5 +45,7 @@ def execute_tests():
             file.write(f"Teste de permutacao: {'OK' if r4 else 'Nao Passou'}\n\n")
 
 if __name__ == '__main__':
+    if not os.path.exists("./txt_files"):
+        os.makedirs("./txt_files")
     generate_files()
     execute_tests()
