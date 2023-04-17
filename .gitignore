@@ -2,10 +2,3 @@ __pycache__
 .venv
 
 /txt_files
-
-*NEWALEO*
-test.txt
-resumo_testes.txt
-exp_teste.txt
-gama_teste.txt
-norm_teste.txt
