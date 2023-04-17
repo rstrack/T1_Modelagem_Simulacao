@@ -35,8 +35,12 @@ def execute_tests():
             r4 = tests.permutation_test(f'./NEWALEO_{file_no+1}.txt')
             file.write(f"ARQUIVO NEWALEO_{file_no+1}.txt\n")
             file.write(f"Teste de uniformidade: {'OK' if r1 else 'Nao Passou'}\n")
-            file.write(f"Teste das corridas: {'OK' if r2 else 'Nao Passou'}\n")
-            file.write(f"Teste de intervalos: {'OK' if all(map(bool, r3)) else 'Nao Passou'}\n")
+            file.write(f"Teste das corridas:\n")
+            file.write(f"\tCorrida ascendente: {'OK' if r2[0] else 'Nao Passou'}\n")
+            file.write(f"\tCorrida descendente: {'OK' if r2[1] else 'Nao Passou'}\n")
+            file.write("Teste de intervalos:\n")
+            for i in range(len(r3)):
+                file.write(f"\tD = {i}: {'OK' if r3[i] else 'Nao Passou'}\n")
             file.write(f"Teste de permutacao: {'OK' if r4 else 'Nao Passou'}\n\n")
 
 if __name__ == '__main__':
