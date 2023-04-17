@@ -1,6 +1,8 @@
 __pycache__
 .venv
 
+/txt_files
+
 *NEWALEO*
 test.txt
 resumo_testes.txt

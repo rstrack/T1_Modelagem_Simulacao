@@ -48,12 +48,12 @@ if __name__ == '__main__':
     norm_dist = NormalDist(13.96, 4.27)
     gama_dist = GamaDist(27.6587, 1.3)
 
-    with open('./exp_teste.txt', 'w') as file:
+    with open('./txt_files/exp_teste.txt', 'w') as file:
         for _ in range(1000):
             file.write(f'{exp_dist.generate()}\n')
-    with open('./norm_teste.txt', 'w') as file:
+    with open('./txt_files/norm_teste.txt', 'w') as file:
         for _ in range(1000):
             file.write(f'{norm_dist.generate()}\n')
-    with open('./gama_teste.txt', 'w') as file:
+    with open('./txt_files/gama_teste.txt', 'w') as file:
         for _ in range(1000):
             file.write(f'{gama_dist.generate()}\n')
