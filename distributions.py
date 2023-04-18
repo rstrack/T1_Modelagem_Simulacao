@@ -1,4 +1,6 @@
 import time
+import math
+import random
 import numpy as np
 from gnpcl import GNPCL
 
@@ -18,7 +20,43 @@ class GamaDist:
         self.beta = beta
 
     def generate(self):
-        return (-1/self.alpha) * np.log(1 - self.gnpcl.generate()) / self.beta
+        # Usa a teoria do seguinte artigo para geração do valor:
+        # "The Generation of Gamma Variables with Non-Integral Shape Parameter"
+        # de R. C. H. Cheng
+        # link: https://www.jstor.org/stable/2346871?seq=1#page_scan_tab_contents
+        if self.alpha > 1.0:
+            ainv = np.sqrt(2.0 * self.alpha - 1.0)
+            bbb = self.alpha - np.log(4)
+            ccc = self.alpha + ainv
+            while True:
+                u1 = self.gnpcl.generate()
+                if not 1e-7 < u1 < 0.9999999:
+                    continue
+                u2 = 1.0 - self.gnpcl.generate()
+                v = np.log(u1 / (1.0 - u1)) / ainv
+                x = self.alpha * np.exp(v)
+                z = u1 * u1 * u2
+                r = bbb + ccc * v - x
+                if r + 1.0 + np.log(4.5) - 4.5 * z >= 0.0 or r >= np.log(z):
+                    return x * self.beta
+        elif self.alpha == 1.0:
+            return -np.log(1.0 - self.gnpcl.generate()) * self.beta
+        else:
+            while True:
+                u = self.gnpcl.generate()
+                b = (np.e + self.alpha) / np.e
+                p = b * u
+                if p <= 1.0:
+                    x = p ** (1.0 / self.alpha)
+                else:
+                    x = -np.log((b - p) / self.alpha)
+                u1 = self.gnpcl.generate()
+                if p > 1.0:
+                    if u1 <= x ** (self.alpha - 1.0):
+                        break
+                elif u1 <= np.exp(-x):
+                    break
+            return x * self.beta
 
 
 class NormalDist:
@@ -42,15 +80,14 @@ class NormalDist:
             return self.std_dev*ret + self.mean
         return 'error'
 
-
 if __name__ == '__main__':
-    exp_dist = ExponentialDist(0.1)
+    exp_dist = ExponentialDist(0.0422)
+    gama_dist = GamaDist(27.6587, 1.3054)
     norm_dist = NormalDist(13.96, 4.27)
-    gama_dist = GamaDist(27.6587, 1.3)
 
     with open('./txt_files/exp_teste.txt', 'w') as file:
         for _ in range(1000):
-            file.write(f'{exp_dist.generate()}\n')
+                file.write(f'{exp_dist.generate()}\n')
     with open('./txt_files/norm_teste.txt', 'w') as file:
         for _ in range(1000):
             file.write(f'{norm_dist.generate()}\n')
