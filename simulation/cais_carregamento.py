@@ -6,7 +6,7 @@ class CaisCarregamento:
         self.navio = None
         self.fila = []
         self.rect = pygame.Rect(1000, 700, 160, 50)
-        self.color = (255, 0, 255)
+        self.color = (128, 128, 128)
         self.font = pygame.font.Font(None, 24)
 
     def update(self):

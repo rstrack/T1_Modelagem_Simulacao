@@ -14,6 +14,7 @@ def generate_test():
 
 def generate_files():
     """Gera 10 arquivos com 5 MI de números aleatórios com o gerador criado"""
+    files_create_duration = []
     gen = GNPCL(0)
     for file_no in range(1, 11):
         with open(f'./txt_files/NEWALEO_{file_no}.txt', 'w') as file:
@@ -24,7 +25,13 @@ def generate_files():
                 x = gen.generate()
                 file.write(f'{x}\n')
             duration = time.time() - start_time
+            files_create_duration.append(duration)
             print(f'Arquivo {file.name} criado em {duration:.2f} segundos')
+    with open('./txt_files/files_generate_time.txt', 'w') as file:
+        file.write('TEMPO DE CRIAÇÃO DOS ARQUIVOS:\n')
+        for i in range(len(files_create_duration)):
+            file.write(f'NEWALEO_{i+1}.txt : {files_create_duration[i]} segundos\n')
+
 
 def execute_tests():
     """Executa os testes de aleatoriedade nos arquivos gerados"""
