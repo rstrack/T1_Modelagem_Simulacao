@@ -2,12 +2,12 @@ import sys
 
 import pygame
 
-from simulacao.navio import Navio, SPEED_SCALE
-from simulacao.porto import Porto
-from simulacao.cais_carregamento import Cais_carregamento
-from simulacao.cais_pagamento import Cais_pagamento
+from simulation.navio import Navio, SPEED_SCALE
+from simulation.porto import Porto
+from simulation.cais_carregamento import Cais_carregamento
+from simulation.cais_pagamento import Cais_pagamento
 
-from modelagem.distributions import ExponentialDist, GamaDist, NormalDist
+from modeling.distributions import ExponentialDist, GamaDist, NormalDist
 
 pygame.init()
 WIDTH = 1200

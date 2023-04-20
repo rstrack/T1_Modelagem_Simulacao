@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from modelagem.gnpcl import GNPCL
+from modeling.gnpcl import GNPCL
 
 class ExponentialDist:
     def __init__(self, param_lambda) -> None:

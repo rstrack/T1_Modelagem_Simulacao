@@ -5,18 +5,18 @@ Trabalho avaliativo I da disciplina de Modelagem e Simulação
 
 * Abra um terminal na pasta do projeto e copie os comandos abaixo:
 
-Powershell/ Terminal integrado VSCode:
-```
-    python -m venv '.venv'
-    .\.venv\Scripts\Activate.ps1
-    pip install -r requirements.txt
-    .\.venv\Scripts\Python.exe main.py
-```
-
-CMD:
+Modelagem - GNP Congruencial linear e testes de uniformidade:
 ```
     python -m venv '.venv'
     .\.venv\Scripts\activate.bat
     pip install -r requirements.txt
-    .\.venv\Scripts\Python.exe main.py
+    .\.venv\Scripts\Python.exe run_generator_and_tests.py
+```
+
+Simulação - Navios Cargueiros Petroleiros:
+```
+    python -m venv '.venv'
+    .\.venv\Scripts\activate.bat
+    pip install -r requirements.txt
+    .\.venv\Scripts\Python.exe run_simulation.py
 ```

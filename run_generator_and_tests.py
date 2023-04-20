@@ -2,8 +2,8 @@ import os
 import time
 import numpy
 
-import modelagem.tests as tests
-from modelagem.gnpcl import GNPCL
+import modeling.tests as tests
+from modeling.gnpcl import GNPCL
 
 def generate_test():
     """Gera um arquivo com números aleatórios com dist. uniforme utilizando o numpy, para testes"""
