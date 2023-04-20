@@ -1,11 +1,11 @@
 import pygame
 from pygame import Surface
 
-class Cais_carregamento:
+class CaisCarregamento:
     def __init__(self):
         self.navio = None
         self.fila = []
-        self.rect = pygame.Rect(1000, 500, 160, 50)
+        self.rect = pygame.Rect(1000, 700, 160, 50)
         self.color = (255, 0, 255)
         self.font = pygame.font.Font(None, 24)
 

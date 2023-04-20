@@ -1,6 +1,6 @@
 import pygame
 
-class Cais_pagamento:
+class CaisPagamento:
     def __init__(self):
         self.navio = None
         self.fila = []
