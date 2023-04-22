@@ -95,7 +95,7 @@ def runs_test(file_path: str):
     else:
         print('Falha na corrida ascendente')
     if desc_ks_calc < desc_ks_5:
-        results[0] = True
+        results[1] = True
         print('CORRIDA DESCENDENTE OK')
     else:
         print('Falha na corrida descendente')

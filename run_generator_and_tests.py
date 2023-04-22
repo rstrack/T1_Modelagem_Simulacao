@@ -27,7 +27,7 @@ def generate_files():
             duration = time.time() - start_time
             files_create_duration.append(duration)
             print(f'Arquivo {file.name} criado em {duration:.2f} segundos')
-    with open('./txt_files/files_generate_time.txt', 'w') as file:
+    with open('./txt_files/files_generation_time.txt', 'w') as file:
         file.write('TEMPO DE CRIAÇÃO DOS ARQUIVOS:\n')
         for i in range(len(files_create_duration)):
             file.write(f'NEWALEO_{i+1}.txt : {files_create_duration[i]} segundos\n')
@@ -54,5 +54,5 @@ def execute_tests():
 if __name__ == '__main__':
     if not os.path.exists("./txt_files"):
         os.makedirs("./txt_files")
-    generate_files()
+    # generate_files()
     execute_tests()
