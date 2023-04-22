@@ -1,4 +1,5 @@
-# T1_Model_Sim
+# T1_Modelagem_Simulacao
+
 Trabalho avaliativo I da disciplina de Modelagem e Simulação
 
 ## Dependências
