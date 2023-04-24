@@ -1,5 +1,10 @@
-# T1_Model_Sim
+# T1_Modelagem_Simulacao
+
 Trabalho avaliativo I da disciplina de Modelagem e Simulação
+
+## Dependências
+
+* [Python versão >= 3.8](https://www.python.org/downloads/)
 
 ## Rodando o projeto
 
