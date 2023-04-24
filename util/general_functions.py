@@ -17,7 +17,7 @@ def generate_summary(summary: list[float]):
     file = open(resource_path('./simulation_summary.txt'), 'w')
     file.write('RESUMO DA SIMULAÇÃO\n')
     file.write(f'Data: {datetime.now()}\n\n')
-    file.write('Tempo total da simulação: {:.2f} horas\n\n'.format(np.sum(summary[0])+np.sum(summary[1:]) // 1))
+    file.write('Tempo total da simulação: {:.2f} minutos\n\n'.format(np.sum(summary[0])+np.sum(summary[1:]) // 1))
     file.write('---------------------------------------------------------\n')
     file.write('INTERVALO ENTRE CHEGADAS:\n')
     file.write(f'Média: {np.mean(summary[0])}\nDesvio padrão: {np.std(summary[0])}\nMáx.: {np.max(summary[0])}\nMin.: {np.min(summary[0])}\n')

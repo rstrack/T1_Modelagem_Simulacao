@@ -138,7 +138,7 @@ def interval_test(file_path: str):
 
 
 def permutation_test(file_path: str):
-    fo_count = [0] * 120
+    fo_count = [0] * PERMUTATION_COMB_COUNT
     with open(file_path, 'r') as f:
         values = [float(line) for line in f.readlines()]
 
