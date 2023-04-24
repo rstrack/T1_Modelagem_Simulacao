@@ -2,7 +2,7 @@ import itertools
 import numpy as np
 import math
 
-UNIFORMITY_CLASS_COUNT = 10
+UNIFORMITY_CLASS_COUNT = 100
 NUM_COUNT = 5000000
 PERMUTATION_ELEMENT_COUNT = 5
 PERMUTATION_COMB_COUNT = math.factorial(PERMUTATION_ELEMENT_COUNT)
@@ -13,15 +13,12 @@ def uniformity_test(file_path: str):
     values = np.zeros(UNIFORMITY_CLASS_COUNT, dtype=float)
 
     with open(file_path, 'r') as f:
-        cont = 0
         for line in f.readlines():
-            if cont == NUM_COUNT: break
-            cont += 1
             value = float(line)
             values[int(value*UNIFORMITY_CLASS_COUNT)] += 1
 
     #frequencia acumulada esperada
-    expected_cdf = np.array([1/UNIFORMITY_CLASS_COUNT*i for i in range(1, UNIFORMITY_CLASS_COUNT+1)]) 
+    expected_cdf = np.array([i/UNIFORMITY_CLASS_COUNT for i in range(1, UNIFORMITY_CLASS_COUNT+1)]) 
 
     #frequencia acumulada observada
     observed_cdf = np.zeros(UNIFORMITY_CLASS_COUNT, dtype=float) 
@@ -35,9 +32,8 @@ def uniformity_test(file_path: str):
     if(ks_calc < ks_5):
         print('Aceita H0')
         return True
-    else: 
-        print('Rejeita H0')
-        return False
+    print('Rejeita H0')
+    return False
 
 
 def runs_test(file_path: str):
@@ -77,7 +73,7 @@ def runs_test(file_path: str):
         asc_observed_cdf[i] = asc_runs.count(i)/len(asc_runs) if i == 0 else asc_runs.count(i)/len(asc_runs) + asc_observed_cdf[i-1]
             
     desc_expected = [i/math.factorial(i+1)for i in range(desc_class_count)]
-    desc_expected_cdf = np.array([(desc_expected[i] if i == 0 else sum(desc_expected[:i+1])) for i in range(desc_class_count)])
+    desc_expected_cdf = np.array([sum(desc_expected[:i+1]) for i in range(desc_class_count)])
     desc_observed_cdf = np.zeros(desc_class_count)
     for i in range(desc_class_count):
         desc_observed_cdf[i] = desc_runs.count(i)/len(desc_runs) if i == 0 else desc_runs.count(i)/len(desc_runs) + desc_observed_cdf[i-1]        
@@ -121,7 +117,7 @@ def interval_test(file_path: str):
                 interval_len = 0
         UNIFORMITY_CLASS_COUNT = np.max(intervals)+1
         expected = np.array([(0.9**k)*0.1 for k in range(UNIFORMITY_CLASS_COUNT)])
-        expected_cdf = np.array([(expected[k] if k == 0 else sum(expected[:k+1])) for k in range(UNIFORMITY_CLASS_COUNT)])
+        expected_cdf = np.array([sum(expected[:k+1]) for k in range(UNIFORMITY_CLASS_COUNT)])
         observed_cdf = np.zeros(UNIFORMITY_CLASS_COUNT)
         for i in range(UNIFORMITY_CLASS_COUNT):
             observed_cdf[i] = intervals.count(i)/len(intervals) if i == 0 else intervals.count(i)/len(intervals) + observed_cdf[i-1]
@@ -149,7 +145,7 @@ def permutation_test(file_path: str):
             fo_count[order_func(values[i-4:i+1], PERMUTATION_ELEMENT_COUNT)] += 1
     
     group_count = sum(fo_count)
-    expected_cdf = np.array([(1/PERMUTATION_COMB_COUNT)*i for i in range(1,PERMUTATION_COMB_COUNT+1)])
+    expected_cdf = np.array([(i/PERMUTATION_COMB_COUNT) for i in range(1,PERMUTATION_COMB_COUNT+1)])
     observed_cdf = np.array([sum(fo_count[:i+1])/group_count for i in range(PERMUTATION_COMB_COUNT)])
     ks_calc = np.max(np.abs(observed_cdf - expected_cdf))
     ks_5 = 1.36/np.sqrt(group_count)
