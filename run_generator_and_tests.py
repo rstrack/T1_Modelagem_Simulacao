@@ -18,7 +18,7 @@ def generate_files():
     gen = GNPCL(0)
     for file_no in range(1, 11):
         with open(f'./txt_files/NEWALEO_{file_no}.txt', 'w') as file:
-            start_time = time.time()
+            start_time = time.time_ns()
             # usa o valor do unix timestamp como seed
             gen.new_seed(start_time)
             for _ in range(5000000):
