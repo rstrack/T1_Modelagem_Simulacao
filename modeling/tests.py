@@ -163,7 +163,7 @@ def permutation_test(file_path: str):
 
 
 def order_func(values: list, comb_length: int):
-    combs = list(itertools.permutations(sorted(values), 5))
+    combs = list(itertools.permutations(sorted(values), comb_length))
     if comb_length < 3:
         raise ValueError("O tamanho das combinações deve ser maior ou igual a 3")
     for i, comb in enumerate(combs):
