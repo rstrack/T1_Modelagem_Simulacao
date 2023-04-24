@@ -1,32 +1,12 @@
-
-import numpy as np
-import os
 import pygame
 import sys
-import datetime
 
 from modeling.distributions import ExponentialDist, GamaDist, NormalDist
 from simulation.navio import Navio
 from simulation.porto import Porto
 from simulation.cais_carregamento import CaisCarregamento
 from simulation.cais_pagamento import CaisPagamento
-
-def generate_summary():
-    file = open('./simulation_summary.txt', 'w')
-    file.write('RESUMO DA SIMULAÇÃO\n')
-    file.write(f'Data: {datetime.datetime.now()}\n\n')
-    file.write('Tempo total da simulação: {:.2f} horas\n\n'.format(np.sum(resumo[0])+np.sum(resumo[1:]) // 1))
-    file.write('---------------------------------------------------------\n')
-    file.write('INTERVALO ENTRE CHEGADAS:\n')
-    file.write(f'Média: {np.mean(resumo[0])}\nDesvio padrão: {np.std(resumo[0])}\nMáx.: {np.max(resumo[0])}\nMin.: {np.min(resumo[0])}\n')
-    file.write('---------------------------------------------------------\n')
-    file.write('TEMPO DE CARREGAMENTO:\n')
-    file.write(f'Média: {np.mean(resumo[1])}\nDesvio padrão: {np.std(resumo[1])}\nMáx.: {np.max(resumo[1])}\nMin.: {np.min(resumo[1])}\n')
-    file.write('---------------------------------------------------------\n')
-    file.write('TEMPO DE PAGAMENTO E SAÍDA:\n')
-    file.write(f'Média: {np.mean(resumo[2])}\nDesvio padrão: {np.std(resumo[2])}\nMáx.: {np.max(resumo[2])}\nMin.: {np.min(resumo[2])}\n')
-    file.close()
-    os.startfile('simulation_summary.txt')
+from util.general_functions import generate_summary, resource_path
 
 HEIGHT = 800
 WIDTH = 1200
@@ -35,7 +15,7 @@ TOTAL_SHIP_COUNT = 190
 pygame.init()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-water_bg = pygame.image.load('./images/bg-water.jpg')
+water_bg = pygame.image.load(resource_path('images/bg-water.jpg'))
 water_bg = pygame.transform.scale(water_bg, (WIDTH,HEIGHT))
 
 cais_carregamento = CaisCarregamento()
@@ -60,8 +40,8 @@ cais_carregamento.fila.append(navios[0])
 resumo.append([])
 resumo.append([tempo_cais1])
 resumo.append([tempo_cais2])
-# print(f'NAVIO 0: TEMPO CAIS CARREGAMENTO: {tempo_cais1} TEMPO CAIS PAGAMENTO: {tempo_cais2}')
-# print(f'PROXIMO NAVIO EM {intervalo_proximo_navio}')
+print(f'NAVIO 0: TEMPO CAIS CARREGAMENTO: {tempo_cais1} TEMPO CAIS PAGAMENTO: {tempo_cais2}')
+print(f'PROXIMO NAVIO EM {intervalo_proximo_navio}')
 
 while True:
     for event in pygame.event.get():
@@ -74,7 +54,7 @@ while True:
                 print(f'Escala: {speed_scale}')
 
     if len(navios) == TOTAL_SHIP_COUNT and navios[len(navios)-1].image_rect.y <= 0:
-        generate_summary()
+        generate_summary(resumo)
         pygame.quit()
         sys.exit()
 

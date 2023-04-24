@@ -3,6 +3,7 @@ from pygame import Surface
 
 from simulation.cais_carregamento import CaisCarregamento
 from simulation.cais_pagamento import CaisPagamento
+from util.general_functions import resource_path
 
 # speed_scale: 200x = 3s aprox.
 
@@ -20,7 +21,7 @@ class Navio:
         self.speed_scale = 1
         self.speed_horizontal = 5 * self.speed_scale
         self.speed_vertical = 0
-        self.image = pygame.image.load("./images/navio_t1_direita.png")
+        self.image = pygame.image.load(resource_path("images/navio_t1_direita.png"))
         self.image = pygame.transform.scale(self.image, (self.image.get_width() // 3, self.image.get_height() // 3))
         self.image_rect = self.image.get_rect()
         self.image_rect.topleft = (0, 590)
