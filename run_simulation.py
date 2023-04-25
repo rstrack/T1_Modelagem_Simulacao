@@ -68,14 +68,14 @@ while True:
         tempo_gen_navio =  pygame.time.get_ticks() / 1000
         tempo_cais1 = gama_dist.generate()
         tempo_cais2 = norm_dist.generate()
-        print(f'NAVIO {len(navios)}: INTERVALO DE CHEGADA: {tempo_gen_navio} TEMPO CAIS CARREGAMENTO: {tempo_cais1} TEMPO CAIS PAGAMENTO: {tempo_cais2}')
+        print(f'NAVIO {len(navios)}: INTERVALO DE CHEGADA: {intervalo_proximo_navio} TEMPO CAIS CARREGAMENTO: {tempo_cais1} TEMPO CAIS PAGAMENTO: {tempo_cais2}')
         navios.append(Navio(len(navios), cais_carregamento, tempo_cais1 / speed_scale, cais_pagamento, tempo_cais2 / speed_scale))
         cais_carregamento.fila.append(navios[len(navios)-1])
         resumo[0].append(intervalo_proximo_navio)
         resumo[1].append(tempo_cais1)
         resumo[2].append(tempo_cais2)
         intervalo_proximo_navio = exp_dist.generate()
-        # print(f'PROXIMO NAVIO EM {intervalo_proximo_navio}')
+        print(f'PROXIMO NAVIO EM {intervalo_proximo_navio}')
 
     cais_carregamento.update()
     cais_pagamento.update()
