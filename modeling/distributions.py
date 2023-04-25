@@ -4,7 +4,7 @@ from modeling.gnpcl import GNPCL
 
 class ExponentialDist:
     def __init__(self, param_lambda) -> None:
-        self.gnpcl = GNPCL(time.time())
+        self.gnpcl = GNPCL(time.time_ns())
         self.param_lambda = param_lambda
 
     def generate(self):
@@ -13,7 +13,7 @@ class ExponentialDist:
 
 class GamaDist:
     def __init__(self, alpha, beta) -> None:
-        self.gnpcl = GNPCL(time.time())
+        self.gnpcl = GNPCL(time.time_ns())
         self.alpha = alpha
         self.beta = beta
 
@@ -59,7 +59,7 @@ class GamaDist:
 
 class NormalDist:
     def __init__(self, mean, std_dev) -> None:
-        self.gnpcl = GNPCL(time.time())
+        self.gnpcl = GNPCL(time.time_ns())
         self.mean = mean
         self.std_dev = std_dev
         self.z1 = None
